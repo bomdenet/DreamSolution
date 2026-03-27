@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Dream.Animations/Dream.Animations.csproj" Id="a67ef23a-7382-46ba-8f46-9d2a4efc2ac2" />
+    <Project Path="src/Dream.Network/Dream.Network.csproj" />
+    <Project Path="src/Dream.Wpf/Dream.Wpf.csproj" />
+    <Project Path="src/Dream/Dream.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Dream.Network.Test/Dream.Network.Test.csproj" />
+  </Folder>
+  <Folder Name="/Элементы решения/">
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+  </Folder>
+</Solution>
