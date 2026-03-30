@@ -6,8 +6,10 @@ namespace Dream.Wpf;
 public static class FrameTimer
 {
     private static TimeSpan _last;
-    public static event Action<float>? Rendering;
-    
+    public static event Action<TimeSpan>? RenderingTimeSpan;
+    public static event Action<double>? RenderingDouble;
+    public static event Action<float>? RenderingFloat;
+
     static FrameTimer() => Load();
 
     private static void Load() => CompositionTarget.Rendering += Update;
@@ -21,9 +23,14 @@ public static class FrameTimer
             return;
         }
 
-        float deltaTime = (float)(args.RenderingTime - _last).TotalSeconds;
+        TimeSpan deltaTimeTimeSpan = args.RenderingTime - _last;
+        double deltaTimeDouble = deltaTimeTimeSpan.TotalSeconds;
+        float deltaTimeFloat = (float)deltaTimeDouble;
+
         _last = args.RenderingTime;
 
-        Rendering?.Invoke(deltaTime);
+        RenderingTimeSpan?.Invoke(deltaTimeTimeSpan);
+        RenderingDouble?.Invoke(deltaTimeDouble);
+        RenderingFloat?.Invoke(deltaTimeFloat);
     }
 }
