@@ -7,20 +7,21 @@ namespace Dream;
 
 public sealed class DreamUserData
 {
-    [JsonInclude]
-    public Guid ID { get; private set; }
+    public static Guid ID => Instance.ID;
 
-    public static DreamUserData Instance { get; private set; } = null!;
+
+    private static Data Instance { get; set; } = null!;
     static DreamUserData() => Load();
+    [JsonConstructor]
     private DreamUserData() { }
 
-    public static void Save() => File.WriteAllText(DreamData.UserDataFilePath, JsonSerializer.Serialize(Instance));
-    public static void Load()
+    private static void Save() => File.WriteAllText(DreamData.UserDataFilePath, JsonSerializer.Serialize(Instance));
+    private static void Load()
     {
         if (File.Exists(DreamData.UserDataFilePath))
         {
             string json = File.ReadAllText(DreamData.UserDataFilePath);
-            Instance = JsonSerializer.Deserialize<DreamUserData>(json) ?? new();
+            Instance = JsonSerializer.Deserialize<Data>(json) ?? new();
             if (Instance.ID == Guid.Empty)
             {
                 Instance.ID = Guid.NewGuid();
@@ -35,5 +36,11 @@ public sealed class DreamUserData
             };
             Save();
         }
+    }
+
+
+    private sealed class Data
+    {
+        public Guid ID { get; set; }
     }
 }

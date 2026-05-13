@@ -6,7 +6,7 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <Authors>Iakov Khabarov</Authors>
     <Company>Bomdenet</Company>
-    <Version>1.1.0</Version>
+    <Version>1.1.7</Version>
 	<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">True</GeneratePackageOnBuild>
     <PackageOutputPath>..\..\nupkg</PackageOutputPath>
   </PropertyGroup>

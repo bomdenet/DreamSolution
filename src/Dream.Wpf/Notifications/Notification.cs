@@ -4,58 +4,34 @@ namespace Dream.Wpf.Notifications;
 
 public enum NotificationType
 {
-    None = 0,
-    Notification = 1,
-    Warning = 2,
-    Error = 3
+    Message,
+    Warning,
+    Error
 }
 
-public sealed record Notification
+public sealed record Notification : NotificationBase
 {
-    public NotificationType Type { get; init; } = NotificationType.None;
-    public string? Title { get; init; }
-    public string? Message { get; init; }
-    public TimeSpan? Duration { get; init; } = TimeSpan.FromSeconds(5);
-    public bool IsClosable { get; init; } = true;
+    public static string DefaultMessageTitle { get; set; } = "Уведомление";
+    public static string DefaultWarningTitle { get; set; } = "Внимание";
+    public static string DefaultErrorTitle { get; set; } = "Ошибка";
+    public static TimeSpan? DefaultDuration { get; set; } = TimeSpan.FromSeconds(4);
 
-    public static Notification CreateMessage(string message) => new()
-    {
-        Type = NotificationType.Notification,
-        Title = "Уведомление",
-        Message = message
-    };
-    public static Notification CreateMessage(string message, TimeSpan duration) => new()
-    {
-        Type = NotificationType.Notification,
-        Title = "Уведомление",
-        Message = message,
-        Duration = duration
-    };
+    public NotificationType NotificationType { get; init; }
 
-    public static Notification CreateWarning(string message) => new()
-    {
-        Type = NotificationType.Warning,
-        Title = "Предупреждение",
-        Message = message
-    };
-    public static Notification CreateWarning(string message, TimeSpan duration) => new()
-    {
-        Type = NotificationType.Warning,
-        Title = "Предупреждение",
-        Message = message,
-        Duration = duration
-    };
+    public static Notification CreateMessage(string message)                                                                => Create(NotificationType.Message, DefaultMessageTitle, message, DefaultDuration);
+    public static Notification CreateMessage(string message, TimeSpan? duration)                                            => Create(NotificationType.Message, DefaultMessageTitle, message, duration);
 
-    public static Notification CreateError(string message) => new()
+    public static Notification CreateWarning(string message)                                                                => Create(NotificationType.Warning, DefaultWarningTitle, message, DefaultDuration);
+    public static Notification CreateWarning(string message, TimeSpan? duration)                                            => Create(NotificationType.Warning, DefaultWarningTitle, message, duration);
+
+    public static Notification CreateError(string message)                                                                  => Create(NotificationType.Error, DefaultErrorTitle, message, DefaultDuration);
+    public static Notification CreateError(string message, TimeSpan? duration)                                              => Create(NotificationType.Error, DefaultErrorTitle, message, duration);
+
+    public static Notification Create(NotificationType notificationType, string title, string message)                      => Create(notificationType, title, message, DefaultDuration);
+    public static Notification Create(NotificationType notificationType, string title, string message, TimeSpan? duration)  => new()
     {
-        Type = NotificationType.Error,
-        Title = "Ошибка",
-        Message = message
-    };
-    public static Notification CreateError(string message, TimeSpan duration) => new()
-    {
-        Type = NotificationType.Error,
-        Title = "Ошибка",
+        NotificationType = notificationType,
+        Title = title,
         Message = message,
         Duration = duration
     };

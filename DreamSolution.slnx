@@ -7,6 +7,7 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Dream.Network.Test/Dream.Network.Test.csproj" />
+    <Project Path="tests/Dream.Test/Dream.Test.csproj" Id="6263176e-afd2-4374-b299-e829e4627951" />
     <Project Path="tests/Dream.Wpf.Test/Dream.Wpf.Test.csproj" Id="e895de73-e6fe-4d53-ab30-6b8502a7a783" />
   </Folder>
   <Folder Name="/Элементы решения/">
